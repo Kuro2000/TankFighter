@@ -39,6 +39,34 @@ class Tank {
                 break;
 
             }
+
+        }
+        for (var i = 0; i < arrSteel.length; i++) {
+            rect2 = {x: arrSteel[i].x, y: arrSteel[i].y, width: 16, height: 16};
+            if (this.checkCollision(rect1, rect2) == true) {
+                isMove = false;
+                break;
+
+            }
+
+        }
+        for (var i = 0; i < arrWater.length; i++) {
+            rect2 = {x: arrWater[i].x, y: arrWater[i].y, width: 32, height: 32};
+            if (this.checkCollision(rect1, rect2) == true) {
+                isMove = false;
+                break;
+
+            }
+
+        }
+        for (var i = 0; i < arrTrees.length; i++) {
+            rect2 = {x: arrTrees[i].x, y: arrTrees[i].y, width: 32, height: 32};
+            if (this.checkCollision(rect1, rect2) == true) {
+                isMove = false;
+                break;
+
+            }
+
         }
         if(isMove == true)
         {

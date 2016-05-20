@@ -65,11 +65,12 @@
 /*
 * Map size : 64 x 64
 * 0 : Movable
-* 0 : Brick Wall
+* 1 : Brick Wall
 * 2 : Steel Wall
 * 3 : Water
 * 4 : Trees
  */
+
 
 
 
