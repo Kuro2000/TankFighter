@@ -25,7 +25,7 @@ class Bullet {
         this.y += this.speedY;
     }
     draw(context){
-        context.drawImage(this.sprite,this.x,this.y);
+        context.drawImage(this.sprite,this.x+13,this.y+13);
     }
     move (direction) {
         switch (direction) {
