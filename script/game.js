@@ -18,25 +18,91 @@ window.onload = function()
     }, 17);
 };
 var player;
-var playerBullet;
+var map = [ [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0],
+            [0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0],
+            [0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0],
+            [0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0],
+            [0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0],
+            [0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0],
+            [0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0],
+            [0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0],
+            [0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0],
+            [0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,1,1,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,1,1,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0]];
+var arrBrick = new Array();
+var arrSteel = new Array();
+var arrTrees = new Array();
+var arrWater = new Array();
+for(var i = 0; i < 26; i++) {
+    for(var j = 0; j < 26; j++) {
+        if (map[i][j] == 1)
+        {
+            var brick = new wallBrick(i,j);
+            arrBrick.push(brick);
+        }
+        if (map[i][j] == 2)
+        {
+            var steel = new wallSteel(i,j);
+            arrSteel.push(steel);
+        }
+        if (map[i][j] == 3)
+        {
+            var water = new Water(i,j);
+            arrWater.push(water);
+        }
+        if (map[i][j] == 4)
+        {
+            var trees = new Trees(i,j);
+            arrTrees.push(trees);
+        }
+    }
+}
 function gameStart()
 {
 	//Tank is as known as the blueprint for building 'player', stored in Tank.js
     //Bullet                                         'playerBullet', stored in Bullet.js
     player = new Tank(100,100);
-    playerBullet = new Bullet(0,0,1);
 }
 function gameUpdate()
 {
     player.update();
-    playerBullet.update();
 }
 function gameDrawer(context)
 {
     context.fillStyle = "999999";
     context.fillRect(0,0,window.innerWidth,window.innerHeight);
 	player.draw(context);
-    playerBullet.draw(context);
+    for(var i = 0; i < arrBrick.length; i++)
+    {
+        arrBrick[i].draw(context);
+    }
+    for(var i = 0; i < arrSteel.length; i++)
+    {
+        arrSteel[i].draw(context);
+    }
+    for(var i = 0; i < arrWater.length; i++)
+    {
+        arrWater[i].draw(context);
+    }
+    for(var i = 0; i < arrTrees.length; i++)
+    {
+        arrTrees[i].draw(context);
+    }
 }
 window.onkeydown = function(e)
 {
@@ -55,9 +121,7 @@ window.onkeydown = function(e)
             player.move(4);
             break;
         case 32 ://Space Bar, Shoot
-            playerBullet.x = player.x;
-            playerBullet.y = player.y;
-            playerBullet.move(player.direction);
+            player.shoot();
             break;
     }
 };

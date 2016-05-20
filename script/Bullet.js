@@ -18,6 +18,7 @@ class Bullet {
         this.spriteRight = new Image();
         this.spriteRight.src = "images/bullet_right.png";
         this.direction = direction;
+        this.move(direction);
     }
 
     update() {
@@ -25,32 +26,28 @@ class Bullet {
         this.y += this.speedY;
     }
     draw(context){
-        context.drawImage(this.sprite,this.x+13,this.y+13);
+        context.drawImage(this.sprite,this.x,this.y); //
     }
     move (direction) {
         switch (direction) {
             case 1: //Fire up
                 this.sprite = this.spriteUp;
                 this.speedY = -8;
-                this.speedX = 0;
                 this.direction = direction;
                 break;
             case 2: //Fire down
                 this.sprite = this.spriteDown;
                 this.speedY = 8;
-                this.speedX = 0;
                 this.direction = direction;
                 break;
             case 3: //Fire left
                 this.sprite = this.spriteLeft;
                 this.speedX = -8;
-                this.speedY = 0;
                 this.direction = direction;
                 break;
             case 4: //Fire right
                 this.sprite = this.spriteRight;
                 this.speedX = 8;
-                this.speedY = 0;
                 this.direction = direction;
                 break;
         }
