@@ -3,7 +3,8 @@
  */
 class Tank {
     constructor(x, y) {
-        this.bullet = new Array();
+        this.readyShoot = true;
+        this.bullet;
         this.x = x;
         this.y = y;
         this.speedX = 0;
@@ -20,7 +21,8 @@ class Tank {
         this.spriteRight.src = "images/tank_basic_right_c0_t1_f.png";
         this.direction = 1; //Current direction
     }
-    checkCollision(rect1,rect2) {
+
+    checkCollision(rect1, rect2) {
         if (rect1.x < rect2.x + rect2.width &&
             rect1.x + rect1.width > rect2.x &&
             rect1.y < rect2.y + rect2.height &&
@@ -29,64 +31,48 @@ class Tank {
         }
         return false;
     }
+
     update() {
-        var isMove = true;
+        var isTankMove = true;
         var rect1 = {x: this.x + this.speedX, y: this.y + this.speedY, width: 32, height: 32};
         for (var i = 0; i < arrBrick.length; i++) {
             var rect2 = {x: arrBrick[i].x, y: arrBrick[i].y, width: 16, height: 16};
             if (this.checkCollision(rect1, rect2) == true) {
-                isMove = false;
+                isTankMove = false;
                 break;
 
             }
-
         }
         for (var i = 0; i < arrSteel.length; i++) {
             rect2 = {x: arrSteel[i].x, y: arrSteel[i].y, width: 16, height: 16};
             if (this.checkCollision(rect1, rect2) == true) {
-                isMove = false;
+                isTankMove = false;
                 break;
-
             }
-
         }
         for (var i = 0; i < arrWater.length; i++) {
             rect2 = {x: arrWater[i].x, y: arrWater[i].y, width: 32, height: 32};
             if (this.checkCollision(rect1, rect2) == true) {
-                isMove = false;
+                isTankMove = false;
                 break;
-
             }
-
         }
-        for (var i = 0; i < arrTrees.length; i++) {
-            rect2 = {x: arrTrees[i].x, y: arrTrees[i].y, width: 32, height: 32};
-            if (this.checkCollision(rect1, rect2) == true) {
-                isMove = false;
-                break;
-
-            }
-
-        }
-        if(isMove == true)
-        {
+        if (isTankMove == true) {
             this.x += this.speedX;
             this.y += this.speedY;
         }
-        for (var i = 0;i < this.bullet.length;i++)
-        {
-            this.bullet[i].update();
+        if (this.readyShoot == false) {
+            this.bullet.update();
         }
-
     }
+
     draw(context) {
         context.drawImage(this.sprite, this.x, this.y);
-        for (var i = 0;i < this.bullet.length;i++)
-        {
-                this.bullet[i].draw(context);
+        if (this.readyShoot == false) {
+            this.bullet.draw(context);
         }
-
     }
+
     move(direction) {
         switch (direction) {
             case 1://Move up
@@ -116,8 +102,10 @@ class Tank {
         }
     }
 
-    shoot(){
-        var bullet = new Bullet(this.x + 13, this.y + 13, this.direction);
-        this.bullet.push(bullet);
+    shoot() {
+        if (this.readyShoot == true) {
+            this.readyShoot = false;
+            this.bullet = new Bullet(this.x + 13, this.y + 13, this.direction);
+        }
     }
 }
