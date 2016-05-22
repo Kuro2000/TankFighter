@@ -82,7 +82,7 @@ class Tank {
         }
         if (this.bullet != null) {
             this.bullet.update();
-        }
+    }
     }
 
     draw(context) {

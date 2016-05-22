@@ -83,28 +83,27 @@ function gameStart()
 function gameUpdate()
 {
     player.update();
+    for(var i = 0; i < arrWater.length; i++) {
+        arrWater[i].update();
+    }
 }
 function gameDrawer(context)
 {
     context.fillStyle = "999999";
     context.fillRect(0,0,window.innerWidth,window.innerHeight);
-    for(var i = 0; i < arrBrick.length; i++)
-    {
-        arrBrick[i].draw(context);
-    }
-    for(var i = 0; i < arrSteel.length; i++)
-    {
-        arrSteel[i].draw(context);
-    }
-    for(var i = 0; i < arrWater.length; i++)
-    {
+    for(var i = 0; i < arrWater.length; i++) {
         arrWater[i].draw(context);
     }
-    for(var i = 0; i < arrTrees.length; i++)
-    {
+    player.draw(context);
+    for(var i = 0; i < arrBrick.length; i++) {
+        arrBrick[i].draw(context);
+    }
+    for(var i = 0; i < arrSteel.length; i++) {
+        arrSteel[i].draw(context);
+    }
+    for(var i = 0; i < arrTrees.length; i++) {
         arrTrees[i].draw(context);
     }
-    player.draw(context);
 }
 window.onkeydown = function(e)
 {
@@ -153,7 +152,6 @@ window.onkeyup = function (e) {
                 player.sprite = player.spriteRight;
             }
             break;
-
     }
 };
 
