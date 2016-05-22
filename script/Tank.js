@@ -4,7 +4,7 @@
 class Tank {
     constructor(x, y) {
         this.readyShoot = true;
-        this.bullet;
+        this.bullet = null;
         this.x = x;
         this.y = y;
         this.speedX = 0;
@@ -34,6 +34,17 @@ class Tank {
 
     update() {
         var isTankMove = true;
+        if (this.bullet != null) {
+            var rect1 = {x:this.bullet.x, y:this.bullet.y,width:8,height:8};
+            for (var i = 0; i < arrBrick.length; i++) {
+                var rect2 = {x: arrBrick[i].x, y: arrBrick[i].y, width: 16, height: 16};
+                if (this.checkCollision(rect1, rect2) == true) {
+                    arrBrick.splice(i, 1);
+                    this.bullet = null;
+                    break;
+                }
+            }
+        }
         var rect1 = {x: this.x + this.speedX, y: this.y + this.speedY, width: 32, height: 32};
         for (var i = 0; i < arrBrick.length; i++) {
             var rect2 = {x: arrBrick[i].x, y: arrBrick[i].y, width: 16, height: 16};
@@ -61,14 +72,14 @@ class Tank {
             this.x += this.speedX;
             this.y += this.speedY;
         }
-        if (this.readyShoot == false) {
+        if (this.bullet != null) {
             this.bullet.update();
         }
     }
 
     draw(context) {
         context.drawImage(this.sprite, this.x, this.y);
-        if (this.readyShoot == false) {
+        if (this.bullet != null) {
             this.bullet.draw(context);
         }
     }
@@ -103,7 +114,7 @@ class Tank {
     }
 
     shoot() {
-        if (this.readyShoot == true) {
+        if (this.bullet == null) {
             this.readyShoot = false;
             this.bullet = new Bullet(this.x + 13, this.y + 13, this.direction);
         }
