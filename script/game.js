@@ -88,7 +88,6 @@ function gameDrawer(context)
 {
     context.fillStyle = "999999";
     context.fillRect(0,0,window.innerWidth,window.innerHeight);
-	player.draw(context);
     for(var i = 0; i < arrBrick.length; i++)
     {
         arrBrick[i].draw(context);
@@ -105,6 +104,7 @@ function gameDrawer(context)
     {
         arrTrees[i].draw(context);
     }
+    player.draw(context);
 }
 window.onkeydown = function(e)
 {

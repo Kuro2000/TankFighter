@@ -3,7 +3,6 @@
  */
 class Tank {
     constructor(x, y) {
-        this.readyShoot = true;
         this.bullet = null;
         this.x = x;
         this.y = y;
@@ -40,6 +39,15 @@ class Tank {
                 var rect2 = {x: arrBrick[i].x, y: arrBrick[i].y, width: 16, height: 16};
                 if (this.checkCollision(rect1, rect2) == true) {
                     arrBrick.splice(i, 1);
+                    this.bullet = null;
+                    break;
+                }
+            }
+            for(var i=0;i<arrSteel.length;i++)
+            {
+                var rect2 = {x:arrSteel[i].x, y: arrSteel[i].y, width:16,height:16};
+                if(this.checkCollision(rect1,rect2)==true)
+                {
                     this.bullet = null;
                     break;
                 }
@@ -115,7 +123,6 @@ class Tank {
 
     shoot() {
         if (this.bullet == null) {
-            this.readyShoot = false;
             this.bullet = new Bullet(this.x + 13, this.y + 13, this.direction);
         }
     }
