@@ -72,12 +72,14 @@ for(var i = 0; i < 28; i++) {
             var trees = new Trees(i,j);
             arrTrees.push(trees);
         }
+        if (map[i][j] == null){
+            map[i][j] = 0;
+        }
     }
 }
 function gameStart()
 {
 	//Tank is as known as the blueprint for building 'player', stored in Tank.js
-    //Bullet                                         'playerBullet', stored in Bullet.js
     player = new Tank(100,100);
 }
 function gameUpdate()

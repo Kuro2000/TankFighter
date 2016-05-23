@@ -82,7 +82,7 @@ class Tank {
         }
         if (this.bullet != null) {
             this.bullet.update();
-    }
+        }
     }
 
     draw(context) {
@@ -95,32 +95,31 @@ class Tank {
     move(direction) {
         switch (direction) {
             case 1://Move up
-                this.speedY = -3;
+                this.speedY = -4;
                 this.speedX = 0;
                 this.sprite = this.spriteUp;
                 this.direction = direction;
                 break;
             case 2://Move down
-                this.speedY = 3;
+                this.speedY = 4;
                 this.speedX = 0;
                 this.sprite = this.spriteDown;
                 this.direction = direction;
                 break;
             case 3://Move left
-                this.speedX = -3;
+                this.speedX = -4;
                 this.speedY = 0;
                 this.sprite = this.spriteLeft;
                 this.direction = direction;
                 break;
             case 4://Move right
-                this.speedX = 3;
+                this.speedX = 4;
                 this.speedY = 0;
                 this.sprite = this.spriteRight;
                 this.direction = direction;
                 break;
         }
     }
-
     shoot() {
         if (this.bullet == null) {
             this.bullet = new Bullet(this.x + 13, this.y + 13, this.direction);
