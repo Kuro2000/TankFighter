@@ -30,7 +30,7 @@ class Water {
         this.sprite = new Animation(this.x,this.y, "water_",2,10);
     }
     update(){
-        this.sprite.update();
+        this.sprite.update(this.x,this.y);
     }
     draw(context) {
        this.sprite.draw(context);

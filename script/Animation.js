@@ -14,11 +14,14 @@ class Animation {
             this.sprites.push(image);
         }
     }
-    update() {
+    update(x,y) {
         this.count++;
+        this.x = x;
+        this.y = y;
         if (this.count >= this. speed) {
-            this.count = 0;
             this.index++;
+            this.count = 0;
+
             this.index = this.index % this.countframe;
         }
     }
